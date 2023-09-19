@@ -51,8 +51,8 @@ type PremiumIndex struct {
 	LastFundingRate      string `json:"lastFundingRate"`
 	NextFundingTime      int64  `json:"nextFundingTime"`
 	InterestRate         string `json:"interestRate"`
-	EstimatedSettlePrice string `json:"estimatedSettlePrice"`
 	IndexPrice           string `json:"indexPrice"`
+	EstimatedSettlePrice string `json:"estimatedSettlePrice"`
 	Time                 int64  `json:"time"`
 }
 
