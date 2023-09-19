@@ -44,6 +44,7 @@ func (s *PremiumIndexService) Do(ctx context.Context, opts ...RequestOption) (re
 }
 
 // PremiumIndex define premium index of mark price
+
 type PremiumIndex struct {
 	Symbol               string `json:"symbol"`
 	MarkPrice            string `json:"markPrice"`
