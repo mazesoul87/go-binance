@@ -45,11 +45,14 @@ func (s *PremiumIndexService) Do(ctx context.Context, opts ...RequestOption) (re
 
 // PremiumIndex define premium index of mark price
 type PremiumIndex struct {
-	Symbol          string `json:"symbol"`
-	MarkPrice       string `json:"markPrice"`
-	LastFundingRate string `json:"lastFundingRate"`
-	NextFundingTime int64  `json:"nextFundingTime"`
-	Time            int64  `json:"time"`
+	Symbol               string `json:"symbol"`
+	MarkPrice            string `json:"markPrice"`
+	LastFundingRate      string `json:"lastFundingRate"`
+	NextFundingTime      int64  `json:"nextFundingTime"`
+	InterestRate         string `json:"interestRate"`
+	EstimatedSettlePrice string `json:"estimatedSettlePrice"`
+	IndexPrice           string `json:"indexPrice"`
+	Time                 int64  `json:"time"`
 }
 
 // FundingRateService get funding rate
