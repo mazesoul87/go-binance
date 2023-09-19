@@ -2,8 +2,6 @@ module github.com/mazesoul87/go-binance/v2
 
 go 1.20
 
-replace github.com/mazesoul87/go-binance/v2 => ./
-
 require (
 	github.com/bitly/go-simplejson v0.5.0
 	github.com/gorilla/websocket v1.5.0
