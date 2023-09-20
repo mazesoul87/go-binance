@@ -1129,3 +1129,99 @@ func (s *IsolatedMarginTransferService) Do(ctx context.Context, opts ...RequestO
 	}
 	return res, nil
 }
+
+type MarginInterestHistoryService struct {
+	c *Client
+
+	asset          string
+	isolatedSymbol string
+	startTime      *int64
+	endTime        *int64
+	current        *int64
+	size           *int64
+	archived       string
+	recvWindow     *int64
+	timestamp      *int64
+}
+
+func (s *MarginInterestHistoryService) Asset(asset string) *MarginInterestHistoryService {
+	s.asset = asset
+	return s
+}
+func (s *MarginInterestHistoryService) IsolatedSymbol(isolatedSymbol string) *MarginInterestHistoryService {
+	s.isolatedSymbol = isolatedSymbol
+	return s
+}
+func (s *MarginInterestHistoryService) StartTime(startTime int64) *MarginInterestHistoryService {
+	s.startTime = &startTime
+	return s
+}
+func (s *MarginInterestHistoryService) EndTime(endTime int64) *MarginInterestHistoryService {
+	s.endTime = &endTime
+	return s
+}
+func (s *MarginInterestHistoryService) Current(current int64) *MarginInterestHistoryService {
+	s.current = &current
+	return s
+}
+func (s *MarginInterestHistoryService) Size(size int64) *MarginInterestHistoryService {
+	s.size = &size
+	return s
+}
+func (s *MarginInterestHistoryService) Archived(archived string) *MarginInterestHistoryService {
+	s.archived = archived
+	return s
+}
+func (s *MarginInterestHistoryService) RecvWindow(recvWindow int64) *MarginInterestHistoryService {
+	s.recvWindow = &recvWindow
+	return s
+}
+func (s *MarginInterestHistoryService) Timestamp(timestamp int64) *MarginInterestHistoryService {
+	s.timestamp = &timestamp
+	return s
+}
+
+type MarginInterestHistory struct {
+	TxId                int64  `json:"txId"`
+	InterestAccuredTime int64  `json:"interestAccuredTime"`
+	Asset               string `json:"asset"`
+	RawAsset            string `json:"rawAsset"`
+	Principal           string `json:"principal"`
+	Interest            string `json:"interest"`
+	InterestRate        string `json:"interestRate"`
+	Type                string `json:"type"`
+	IsolatedSymbol      string `json:"isolatedSymbol"`
+}
+
+type InterestHistoryResponse struct {
+	Rows  []MarginInterestHistory `json:"rows"`
+	Total int64                   `json:"total"`
+}
+
+// Do send request
+func (s *MarginInterestHistoryService) Do(ctx context.Context, opts ...RequestOption) (res *InterestHistoryResponse, err error) {
+	r := &request{
+		method:   http.MethodGet,
+		endpoint: "/sapi/v1/margin/interestHistory",
+		secType:  secTypeSigned,
+	}
+	r.setFormParam("asset", s.asset)
+	r.setFormParam("isolatedSymbol", s.isolatedSymbol)
+	r.setFormParam("startTime", s.startTime)
+	r.setFormParam("endTime", s.endTime)
+	r.setFormParam("current", s.current)
+	r.setFormParam("size", s.size)
+	r.setFormParam("archived", s.archived)
+	r.setFormParam("recvWindow", s.recvWindow)
+	r.setFormParam("timestamp", s.timestamp)
+	data, err := s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+	res = new(InterestHistoryResponse)
+	err = json.Unmarshal(data, res)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}

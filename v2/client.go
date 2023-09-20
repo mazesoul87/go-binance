@@ -1009,3 +1009,10 @@ func (c *Client) NewManagedSubAccountAssetsService() *ManagedSubAccountAssetsSer
 func (c *Client) NewSubAccountFuturesAccountService() *SubAccountFuturesAccountService {
 	return &SubAccountFuturesAccountService{c: c}
 }
+
+// NewMarginInterestHistoryService Get Interest History on Sub-account's Futures Account (For Master Account)
+func (c *Client) NewMarginInterestHistoryService() *MarginInterestHistoryService {
+	current := int64(1)
+	size := int64(10)
+	return &MarginInterestHistoryService{c: c, current: &current, size: &size, archived: "false"}
+}
